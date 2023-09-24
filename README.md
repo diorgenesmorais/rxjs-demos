@@ -2,13 +2,14 @@
 
 > Apenas exemplos
 
-- Este projeto deve ser executado apartir do Node 10.24.1
+- Este projeto deve ser executado apartir do Node 14.21.1
 
 - Executes os testes
+
 ```bash
 yarn test
 ```
 
-###### Authors
+## Authors
 
-* [**Diorgenes Morais**](https://github.com/diorgenesmorais)
+*[**Diorgenes Morais**](https://github.com/diorgenesmorais)
