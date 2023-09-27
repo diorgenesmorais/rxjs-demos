@@ -11,6 +11,8 @@
     "test:coverage": "yarn test --coverage"
   },
   "dependencies": {
+    "@types/rx": "^4.1.2",
+    "rxjs": "6.5.3"
   },
   "devDependencies": {
     "@types/jest": "^29.2.5",
