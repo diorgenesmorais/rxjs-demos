@@ -9,7 +9,6 @@ describe('StartWith testing', () => {
             .pipe(startWith(0), takeUntil(unsub$))
             .subscribe(result => {
                 if (result == 0) {
-                    unsub$.complete();
                     expect(result).toEqual(0);
                     unsub$.complete();
                 }
