@@ -24,6 +24,21 @@ describe('Observable list with TestScheduler', () => {
             expectObservable(stock.list$).toBe(expectedMarbles, expectedValues);
         }); 
     });
+
+    it('should get product after 10ms', () => {
+        const stock = new Stock();
+        // after 10ms or 10 frames (https://rxjs.dev/guide/testing/marble-testing#marble-syntax)
+        const expectedMarbles = '----------a';
+        const expectedValues = {
+            a: [{name: 'Solda', value: 5}]
+        }
+
+        stock.addProduct({name: 'Solda', value: 5});
+
+        testScheduler.run(({expectObservable}) => {
+            expectObservable(stock.list$.pipe(debounceTime(10))).toBe(expectedMarbles, expectedValues);
+        }); 
+    });
 });
 
 describe('Observable list with done', () => {
