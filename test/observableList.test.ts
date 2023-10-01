@@ -1,8 +1,8 @@
-import { Subject } from "rxjs";
+import { debounceTime } from "rxjs/operators";
 import { Stock } from "../src/observableList"
 import { TestScheduler } from "rxjs/testing";
 
-describe('Observable list', () => {
+describe('Observable list with TestScheduler', () => {
     let testScheduler: TestScheduler;
 
     beforeEach(() => {
@@ -23,5 +23,25 @@ describe('Observable list', () => {
         testScheduler.run(({expectObservable}) => {
             expectObservable(stock.list$).toBe(expectedMarbles, expectedValues);
         }); 
+    });
+});
+
+describe('Observable list with done', () => {
+    it('should a product in the list', async () => {
+        const stock = new Stock();
+
+        stock.addProduct({name: 'Solda', value: 16});
+
+        return stock.list$
+            .pipe(debounceTime(10))
+            .subscribe(data => {
+                if(data.length) {
+                    expect(data[0].value).toEqual(16);
+                    expect(data[0].value).not.toEqual(17);
+                    return;
+                }
+                throw new Error('Deveria ter um produto pelo menos');
+            });
+
     });
 });
