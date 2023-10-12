@@ -1,4 +1,4 @@
-import { catchError, debounceTime } from "rxjs/operators";
+import { first } from "rxjs/operators";
 import { CustomerService } from "../src/customer.service"
 
 fdescribe('Customer service', () => {
@@ -9,7 +9,7 @@ fdescribe('Customer service', () => {
     })
 
     afterAll(() => {
-        return new Promise((resolve, _) => setTimeout(() => resolve(''), 500))
+        return new Promise((resolve, _) => setTimeout(() => resolve(''), 250))
     })
 
     it('should get error message', async () => {
@@ -22,5 +22,17 @@ fdescribe('Customer service', () => {
                     expect(err).not.toBeNull()
                 }
             ) 
+    })
+
+    it('should receive error message from a subject', async () => {
+        service.error$
+            .pipe(first())
+            .subscribe(err => {
+                expect(err.length).toEqual(1)
+                expect(err[0]).toStrictEqual({severity: 'error', message: 'Serviço indisponível'})
+            })
+
+        service.getCustomerBeneficiaries()
+            .subscribe() 
     })
 })
