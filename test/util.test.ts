@@ -5,7 +5,8 @@ describe('Using closure function', () => {
         const stopwatch = startTime();
 
         waitFor(2000);
-        expect(stopwatch()).toStrictEqual(expected);
+        const actual = stopwatch();
+        expect(actual).toEqual(expected);
     })
 
     it('Should display a clock with total seconds', () => {
